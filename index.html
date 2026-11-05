@@ -1131,7 +1131,7 @@ function showMap() {
   renderSide(); save();
   const r = REALMS[G.realm];
   stage(`<div class="map"><div class="mhead"><div class="rnum">Realm ${G.realm + 1}: ${r.name}</div><div class="mstep">Step ${G.step + 1} of 8 ${G.step === 7 ? '— the lair' : ''}</div></div>
-    <p class="mlead">${G.step === 7 ? 'The air smells of something enormous. Fhyra\'s ears turn forward.' : 'The path forks. Fhyra sniffs each way, tasting the air.'}</p>
+    <p class="mlead">${G.step === 7 ? 'The air smells of something enormous. Fhyra\'s ears turn forward.' : pick(['The path forks. Fhyra smirks, amused at your cute little sniffs as you try to find your way.', 'The path forks. Fhyra waits in perfect stillness while you decide which way her next meal lies.', 'The path forks. Fhyra gracefully sniffs at the air and grins. She already knows where every living thing on this road is hiding.', 'The path forks. Fhyra watches you dither with lazy, voracious amusement.', 'The path forks. Fhyra does not need to choose; every road ends in her stomach eventually.'])}</p>
     <div class="nodes">${G.choices.map((c, i) => `<div class="node n-${c.t}" data-b="nd${i}"><div class="ni">${NODE[c.t].i}</div><b>${NODE[c.t].n}</b><p>"${c.h}"</p></div>`).join('')}</div>
     <div class="mbar">${btn('🎒 Bag', showBag)}${btn('🍽️ Snacks Eaten', showMenu)}${btn('📊 Status', showStatus)}</div></div>`);
   G.choices.forEach((c, i) => BTN['nd' + i] = () => enterNode(c));
