@@ -336,7 +336,7 @@ body.r-divine::before{content:"";position:fixed;inset:0;pointer-events:none;back
  </aside>
  <div id="main">
   <header id="hud" class="pan"><span id="realmn"></span><span id="dots"></span><span class="hspace"></span><span class="ankh">☥ <span id="ankhs">0</span></span>
-   <button class="hb" id="bagb" title="Bag">🎒</button><button class="hb" id="menub" title="Tasting Menu">🍽️</button><button class="hb" id="statb" title="Status">📊</button><button class="hb" id="helpb" title="How to play">❔</button><button class="hb" id="spdb" title="Battle speed">▶</button><button class="hb" id="sndb" title="Sound">🔊</button></header>
+   <button class="hb" id="bagb" title="Bag">🎒</button><button class="hb" id="menub" title="Snacks Eaten">🍽️</button><button class="hb" id="statb" title="Status">📊</button><button class="hb" id="helpb" title="How to play">❔</button><button class="hb" id="spdb" title="Battle speed">▶</button><button class="hb" id="sndb" title="Sound">🔊</button></header>
   <section id="stage"></section>
   <div id="log" class="pan"></div>
  </div>
@@ -611,7 +611,7 @@ const DIVINE = {
 
 // ---------- QUIPS (Fhyra is always composed, regal, and dignified) ----------
 const Q = {
- battleStart:[`Proceed, little one. Weaken them, and present them to me.`,`These creatures have wandered into my presence. That was their final mistake.`,`I shall observe. Do try to be worth observing.`,`You strike. I consume. That is the covenant between us.`,`Should you fall, {n}, you will join them. I waste nothing.`,`Every living thing is an offering. Most have simply not yet been presented.`,`I could end this with a glance. I am letting you practise.`,`Show me your devotion, {n}. Then show me their throats.`,`Do not keep me waiting. I am patient, but I am also hungry.`],
+ battleStart:[`Proceed, little one. Weaken them, and present them to me.`,`These creatures have wandered into my presence. That was their final mistake.`,`I shall observe. Do try to be worth observing.`,`You strike. I consume. That is the covenant between us.`,`Should you fall, {n}, you will join them. I waste nothing.`,`Every living thing is an offering. Most have simply not yet been presented.`,`I could end this with a glance. I am letting you practice.`,`Show me your devotion, {n}. Then show me their throats.`,`Do not keep me waiting. I am patient, but I am also hungry.`],
  devour:[`*She swallows it whole, without haste.* Accepted.`,`Your offering pleases me.`,`It struggles. They always do, briefly.`,`Into me it goes, as all things eventually do.`,`There. It has become part of something greater.`,`I do enjoy feeling their squirms as they disappear forever down my throat.`,`Well presented.`,`Do not be afraid, {t}. You are being honoured.`,`Hm. Fear gives it a pleasant sharpness.`,`One swallow. It is all anything has ever required.`,`Feel it settle, {n}? That is the sound of the natural order.`,`Mine.`],
  leftovers:[`You killed it. I prefer my offerings living, {n}. I shall accept it regardless; I waste nothing.`,`A carcass. Adequate. Bring the next one to me breathing.`,`Dead meat is a lesser offering. Remember that.`],
  wasted:[`I have no room for it at present. A death without purpose. How wasteful.`,`I am full. You have killed it for nothing, {n}.`],
@@ -1133,7 +1133,7 @@ function showMap() {
   stage(`<div class="map"><div class="mhead"><div class="rnum">Realm ${G.realm + 1}: ${r.name}</div><div class="mstep">Step ${G.step + 1} of 8 ${G.step === 7 ? '— the lair' : ''}</div></div>
     <p class="mlead">${G.step === 7 ? 'The air smells of something enormous. Fhyra\'s ears turn forward.' : 'The path forks. Fhyra sniffs each way, tasting the air.'}</p>
     <div class="nodes">${G.choices.map((c, i) => `<div class="node n-${c.t}" data-b="nd${i}"><div class="ni">${NODE[c.t].i}</div><b>${NODE[c.t].n}</b><p>"${c.h}"</p></div>`).join('')}</div>
-    <div class="mbar">${btn('🎒 Bag', showBag)}${btn('🍽️ Tasting Menu', showMenu)}${btn('📊 Status', showStatus)}</div></div>`);
+    <div class="mbar">${btn('🎒 Bag', showBag)}${btn('🍽️ Snacks Eaten', showMenu)}${btn('📊 Status', showStatus)}</div></div>`);
   G.choices.forEach((c, i) => BTN['nd' + i] = () => enterNode(c));
   if (Math.random() < 0.6) say(pick(Q.idle), Math.random() < 0.5 ? 'wink' : 'smug');
   processPerks(() => { });
@@ -1615,7 +1615,7 @@ async function gameOver(k) {
   say(line, 'grin', {}); setFace('grin', 0);
   await sleep(4500);
   SFX.gulp();
-  stage(`<div class="go"><div class="gulpbig">*GULP*</div><div class="gosmall">She swallows ${esc(G.name)} whole, together with ${k && k.i ? k.i + ' ' : ''}${esc(tName(kn))}, in one smooth, practised motion. A heavy bulge slides down her throat and settles in her belly, which rounds out and begins, very faintly, to squirm.</div></div>`);
+  stage(`<div class="go"><div class="gulpbig">*GULP*</div><div class="gosmall">She swallows ${esc(G.name)} whole, together with ${k && k.i ? k.i + ' ' : ''}${esc(tName(kn))}, in one smooth, practiced motion. A heavy bulge slides down her throat and settles in her belly, which rounds out and begins, very faintly, to squirm.</div></div>`);
   G.stomach.push({ id: 'fox', n: G.name + ' (you)', i: ORIGINS[G.origin].i, sz: 1, prog: 0, need: 10, xp: 0, g: 0, live: true });
   if (k && k.i && k.id !== 'none') G.stomach.push({ id: k.id, n: kn, i: k.i, sz: k.sz || 1, prog: 0, need: 10, xp: 0, g: 0, live: true });
   renderSide(); bellyWobble();
@@ -1644,8 +1644,8 @@ async function gameOver(k) {
    <p class="epi">She does not look back. She has never once looked back. Within the hour the scarabs arrive and begin, reverently, to roll ${PR().him} away.</p>
    <p class="epi">${raF ? `Then she climbs the steps of heaven and settles upon Ra's empty throne, which was always hers, full and content. For the first time in an age, ${T()} is not hungry. She has no need of another worshiper for a long, long while.` : final ? `Fhyra settles onto the steps of creation, full and content, and closes her eyes. For the first time in an age, ${T()} is not hungry. She has no need of another worshiper for a long, long while.` : `Far away, a young mortal kneels at a crumbling altar and prays to ${T()} for the very first time. Fhyra's ears turn toward the sound. She smiles, and goes to find her next amusement.`}</p>
    <p class="quote">"${raF ? 'Everything is food. Even the sun. Even you.' : final ? 'Everything is food. Even devourers. Even you.' : `${PR().He} was not worthy to be my worshiper. ${PR().He} was, however, an entirely adequate meal.`}" (Fhyra)</p>
-   <div class="vgrid"><div>Realm ${G.realm + 1}, step ${G.step + 1}</div><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${tasted} species tasted</div><div>Devotion: ${G.dev} (${devWord()})</div></div>
-   <div class="tbtns">${SNAP && !final ? btn('⌛ Return by Fhyra <small>(retry this realm)</small>', () => { G = JSON.parse(SNAP); startUI(); say(`I have unmade your death and returned you to the start of this realm. I am not finished with you. Do try to be less digestible.`, 'wink'); beginRealm(); }, 'big gold') : ''}${btn('☥ New Pilgrimage', () => { wipeSave(); showCreate(); }, 'big')}${btn('🍽️ Tasting Menu', showMenu)}</div></div>`);
+   <div class="vgrid"><div>Realm ${G.realm + 1}, step ${G.step + 1}</div><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${tasted} species eaten</div><div>Devotion: ${G.dev} (${devWord()})</div></div>
+   <div class="tbtns">${SNAP && !final ? btn('⌛ Return by Fhyra <small>(retry this realm)</small>', () => { G = JSON.parse(SNAP); startUI(); say(`I have unmade your death and returned you to the start of this realm. I am not finished with you. Do try to be less digestible.`, 'wink'); beginRealm(); }, 'big gold') : ''}${btn('☥ New Pilgrimage', () => { wipeSave(); showCreate(); }, 'big')}${btn('🍽️ Snacks Eaten', showMenu)}</div></div>`);
   if (final) wipeSave();
 }
 
@@ -1684,9 +1684,9 @@ async function finale(b) {
   else { bad = true; title = 'The Final Offering Ending'; text = `Fhyra considers ${esc(G.name)} with calm, unhurried attention. "You have brought me the Devourer. Your purpose is fulfilled." She lifts ${PR().him} before ${PR().he} can rise from ${PR().his} knees. "Now fulfil one more." ${PR().He} is swallowed at the edge of creation, digested beside the monster ${PR().he} helped defeat, and eventually left on the steps of the world with the rest of what she no longer needs. The scarabs take great care with ${PR().him}.`; }
   BTN = {};
   stage(`<div class="ending ${bad ? 'bad' : ''}"><div class="goface"><img src="${bad ? FACES.grin : FACES.wink}"></div><div class="rnum">THE END</div><h1>${title}</h1>${dump}<p class="epi">${text}</p>
-   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${G.stats.left} leftovers</div><div>${tasted} species tasted</div><div>Devotion ${d}</div></div>
+   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${G.stats.left} leftovers</div><div>${tasted} species eaten</div><div>Devotion ${d}</div></div>
    ${divineOffer(d >= 75)}
-   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Tasting Menu', showMenu)}</div></div>`);
+   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Snacks Eaten', showMenu)}</div></div>`);
   wipeSave();
 }
 async function credits(gourmand) {
@@ -1996,8 +1996,8 @@ async function pantheonEnd(b) {
   stage(`<div class="ending"><div class="goface"><img src="${FACES.wink}"></div><div class="rnum">SECRET ENDING</div><h1>Food For The Real God</h1>
    <p class="epi">Four days later, at the foot of creation, Fhyra settles herself with perfect dignity and passes what remains of Anubis, Sekhmet and Bastet (and, somewhere inside it, Ammit): one immense, dark, steaming heap, glittering with a gold collar, a dented sun-disk, a silver earring and a pair of broken scales. It is the largest offering the scarabs have ever been asked to roll. They form a line. It takes them a week.</p>
    <p class="epi">${keep ? `There are no other gods now. There is only Her, and the frightened mortals, and ${esc(G.name)}. She lifts ${PR().him} in one paw and sets ${PR().him} on the step beside her throne. "${G.fem ? 'High Priestess' : 'High Priest'} of the only god," she says. "Do try to remain worthy. The pile has room."` : `There are no other gods now. There is only Her, and the frightened mortals, and ${esc(G.name)}, who she regards for a long, thoughtful moment before she decides, for today, not to eat ${PR().him}. "Remain useful," she says. ${PR().He} intends to.`}</p>
-   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${tasted} species tasted</div><div>Dread ${G.dread || 0}</div><div>Devotion ${G.dev}</div></div>
-   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Tasting Menu', showMenu)}</div></div>`);
+   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${tasted} species eaten</div><div>Dread ${G.dread || 0}</div><div>Devotion ${G.dev}</div></div>
+   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Snacks Eaten', showMenu)}</div></div>`);
   wipeSave();
 }
 async function pantheonDeath(k) {
@@ -2021,7 +2021,7 @@ async function pantheonDeath(k) {
    <p class="epi">She does not look back. She settles onto her throne at the beginning of the world, full and quiet, and waits for some other mortal to come and amuse her.</p>
    <p class="quote">"I have given up on you. You may join the others who disappointed me." (Fhyra)</p>
    <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>Dread ${G.dread || 0}</div><div>Devotion ${G.dev}</div></div>
-   <div class="tbtns">${btn('☥ New Pilgrimage', () => { wipeSave(); showCreate(); }, 'big gold')}${btn('🍽️ Tasting Menu', showMenu)}</div></div>`);
+   <div class="tbtns">${btn('☥ New Pilgrimage', () => { wipeSave(); showCreate(); }, 'big gold')}${btn('🍽️ Snacks Eaten', showMenu)}</div></div>`);
   wipeSave();
 }
 
@@ -2174,8 +2174,8 @@ async function raFinale(b) {
    <p class="epi">The thrones stand empty. Only one small figure remains in all of heaven besides Her: ${esc(G.name)}, the little ${SP().sp} who followed her through the gate. Something has changed in ${PR().him}. Perhaps it is proximity. Perhaps it is simply that nothing else is left. ${PR().He} is the only lesser deity in existence now.</p>
    <p class="epi">Fhyra looks down at ${PR().him}. "You may serve me," she says. "Eternally." And ${esc(G.name)}, ${G.fem ? 'High Priestess' : 'High Priest'} of Fhyra, her eternal servant, kneels at her paw for the rest of time.</p>
    <p class="quote">"There is only one god. There was only ever one god. Now they know it too." (Fhyra)</p>
-   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${gods.length} gods devoured</div><div>${tasted} species tasted</div><div>Devotion ${G.dev}</div></div>
-   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Tasting Menu', showMenu)}</div></div>`);
+   <div class="vgrid"><div>Level ${G.lvl}</div><div>${G.stats.eaten} creatures offered</div><div>${gods.length} gods devoured</div><div>${tasted} species eaten</div><div>Devotion ${G.dev}</div></div>
+   <div class="tbtns">${btn('Roll Credits', () => credits(tasted >= 30), 'big gold')}${btn('🍽️ Snacks Eaten', showMenu)}</div></div>`);
   wipeSave();
 }
 
@@ -2212,7 +2212,7 @@ function showMenu() {
   const dv = DIVINE_IDS(), full = isBeaten();
   const all = Object.entries(E).filter(([k, e]) => e.hp && k !== 'fox' && (full || !dv.has(k)));
   const t = G ? G.tasted : {}; const n = all.filter(([k]) => t[k]).length;
-  modal(`<h3>🍽️ Fhyra's Tasting Menu</h3><p class="dim">${n} / ${all.length} species tasted (alive). ${n >= 30 ? '✦ Gourmand status achieved.' : 'Devour 30 for a secret~'}</p>${full ? '' : '<p class="dim" style="font-size:12px">Some morsels are not yet shown on the menu.</p>'}
+  modal(`<h3>🍽️ Snacks Eaten</h3><p class="dim">${n} / ${all.length} species eaten (alive). ${n >= 30 ? '✦ Gourmand status achieved.' : 'Devour 30 for a secret~'}</p>${full ? '' : '<p class="dim" style="font-size:12px">Some morsels are not yet shown on the menu.</p>'}
   <div class="menu">${all.map(([k, e]) => t[k] ? `<div class="mcard"><div class="mi">${e.i}</div><b>${esc(e.n)}</b><small>×${t[k]}</small><p>${esc(e.taste)}</p><em>${e.fl ? e.fl[2] : ''}</em></div>` : `<div class="mcard un"><div class="mi">❔</div><b>???</b><p>Not yet tasted.</p></div>`).join('')}</div>`);
 }
 
