@@ -611,7 +611,7 @@ const DIVINE = {
 
 // ---------- QUIPS (Fhyra is always composed, regal, and dignified) ----------
 const Q = {
- battleStart:[`Proceed, little one. Weaken them, and present them to me.`,`These creatures have wandered into my presence. That was their final mistake.`,`I shall observe. Do try to be worth my while.`,`You amuse me. I sate my hunger. That is the covenant between us.`,`Should you fall, {n}, you will join them. I waste nothing.`,`Every living thing is an offering. Most have simply not yet been presented.`,`I could end this with a glance. I am letting you practice.`,`Show me your devotion, {n}. Then show me their throats.`,`Do not keep me waiting. I am patient, but I am also hungry.`],
+ battleStart:[`Proceed, little one. Weaken them, and present them to me.`,`These creatures have wandered into my presence. That was their final mistake.`,`I shall observe. Do try to be worth my while.`,`You amuse me. I sate my hunger. That is the covenant between us.`,`Should you fall, {n}, you will join them. I waste nothing.`,`Every living thing is an offering. They should be always grateful I have not yet decided to consume them.`,`I could end this with a glance. I am letting you practice.`,`Show me your devotion, {n}. Then show me their throats.`,`Do not keep me waiting. I am patient, but I am also hungry.`],
  devour:[`*She swallows it whole, without haste.* Accepted.`,`Your offering pleases me.`,`It struggles. They always do, briefly.`,`Into me it goes, as all things eventually do.`,`There. It has become part of something greater.`,`I do enjoy feeling their squirms as they disappear forever down my throat.`,`Well presented.`,`Do not be afraid, {t}. You are being honoured.`,`Hm. Fear gives it a pleasant sharpness.`,`One swallow. It is all anything has ever required.`,`Feel it settle, {n}? That is the sound of the natural order.`,`Mine.`],
  leftovers:[`You killed it. I prefer my offerings living, {n}. I shall accept it regardless; I waste nothing.`,`A carcass. Disappointing. Bring the next one to me breathing.`,`Dead meat is a lesser offering. Remember that.`],
  wasted:[`I have no room for it at present. A death without purpose. How wasteful.`,`I am full. You have killed it for nothing, {n}.`],
@@ -1240,7 +1240,7 @@ function renderActs() {
    ${btn(`☠️ Snackrifice`, () => act(doOffer), 'offer ' + (ed && canFit ? 'ready' : ''), false, 'Fhyra will devour the target (must be below the gold line)')}
    ${btn('☥ Worship Fhyra', () => { B.menu = 'divine'; renderBattle(); }, 'inv')}
    ${btn('🎒 Items', () => { B.menu = 'items'; renderBattle(); }, '')}
-   ${btn('🫣 Hide Behind Fhyra', () => act(doHide), 'hide', !!(B.opt.boss || B.opt.trio))}
+   ${btn('🫣 Hide Behind Fhyra (Flee)', () => act(doHide), 'hide', !!(B.opt.boss || B.opt.trio))}
   </div>`;
 }
 async function act(fn) {
